@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres-vehicle-platform-core
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: vehicle-platform-core
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - vehicle_platform_core_network
+
+volumes:
+  postgres_data:
+
+networks:
+  vehicle_platform_core_network:
+    driver: bridge
