@@ -43,3 +43,8 @@ func (ref updateVehicleRequest) ToDomain() *entity.Vehicle {
 		Price: ref.Price,
 	}
 }
+
+type vehicleWebhookRequest struct {
+	VehicleID string `json:"vehicle_id"`
+	PaymentID string `json:"payment_id"`
+}

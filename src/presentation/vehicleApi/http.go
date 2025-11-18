@@ -19,6 +19,7 @@ func RegisterVehicleRoutes(app *gin.Engine, vehicleService interfaces.VehicleSer
 
 	app.POST("/vehicles", service.create)
 	app.PATCH("/vehicles/:vehicle_id", service.update)
+	app.POST("/vehicles/webhook", service.webhook)
 }
 
 // Create godoc
@@ -102,5 +103,30 @@ func (ref *vehicleApi) update(ctx *gin.Context) {
 	}
 
 	response := responses.VehicleFromDomain(*vehicle)
+	ctx.JSON(http.StatusOK, response)
+}
+
+// Create godoc
+// @Summary Vehicle Webhook
+// @Description Vehicle Webhook
+// @Tags Vehicle
+// @Accept json
+// @Produce json
+// @Param user body vehicleApi.vehicleWebhookRequest true "Body"
+// @Success 200 {object} responses.Vehicle
+// @Failure 400 {object} responses.ErrorResponse
+// @Failure 500 {object} responses.ErrorResponse
+// @Router /vehicles/webhook [post]
+func (ref *vehicleApi) webhook(ctx *gin.Context) {
+	var request vehicleWebhookRequest
+	if err := ctx.ShouldBindJSON(&request); err != nil {
+		ctx.JSON(http.StatusBadRequest, responses.ErrorResponse{
+			Error: err.Error(),
+		})
+		return
+	}
+
+	response := request
+
 	ctx.JSON(http.StatusOK, response)
 }
