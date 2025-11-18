@@ -6,7 +6,7 @@ type Vehicle struct {
 	ID        string
 	Brand     string
 	Model     string
-	Year      int32
+	Year      int
 	Color     string
 	Price     float64
 	CreatedAt time.Time
