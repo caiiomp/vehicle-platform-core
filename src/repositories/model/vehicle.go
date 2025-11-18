@@ -10,7 +10,7 @@ type Vehicle struct {
 	ID        string    `db:"id"`
 	Brand     string    `db:"brand"`
 	Model     string    `db:"model"`
-	Year      int32     `db:"year"`
+	Year      int       `db:"year"`
 	Color     string    `db:"color"`
 	Price     float64   `db:"price"`
 	CreatedAt time.Time `db:"created_at"`
