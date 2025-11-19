@@ -8,12 +8,17 @@ import (
 )
 
 type vehicleService struct {
-	vehicleRepository interfaces.VehicleRepository
+	vehicleRepository           interfaces.VehicleRepository
+	vehiclePlatformSalesAdapter interfaces.VehiclePlatformSalesAdapter
 }
 
-func NewVehicleService(vehicleRepository interfaces.VehicleRepository) interfaces.VehicleService {
+func NewVehicleService(
+	vehicleRepository interfaces.VehicleRepository,
+	vehiclePlatformSalesAdapter interfaces.VehiclePlatformSalesAdapter,
+) interfaces.VehicleService {
 	return &vehicleService{
-		vehicleRepository: vehicleRepository,
+		vehicleRepository:           vehicleRepository,
+		vehiclePlatformSalesAdapter: vehiclePlatformSalesAdapter,
 	}
 }
 
@@ -25,6 +30,11 @@ func (ref *vehicleService) Create(ctx context.Context, vehicle entity.Vehicle) (
 
 	if created == nil {
 		return nil, nil
+	}
+
+	err = ref.vehiclePlatformSalesAdapter.CreateVehicle(ctx, created.ID, created.Brand, created.Model, created.Color, created.Year, created.Price)
+	if err != nil {
+		return nil, err
 	}
 
 	return created, nil
