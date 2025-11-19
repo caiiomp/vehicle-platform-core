@@ -30,12 +30,15 @@ func TestCreate(t *testing.T) {
 		vehicleRepositoryMocked.On("Create", ctx, vehicle).
 			Return(nil, expectedError)
 
-		service := NewVehicleService(vehicleRepositoryMocked)
+		vehiclePlatformSalesAdapterMocked := mocks.NewVehiclePlatformSalesAdapter(t)
+
+		service := NewVehicleService(vehicleRepositoryMocked, vehiclePlatformSalesAdapterMocked)
 
 		actual, err := service.Create(ctx, vehicle)
 
 		assert.Nil(t, actual)
 		assert.Equal(t, expectedError, err)
+		vehiclePlatformSalesAdapterMocked.AssertNumberOfCalls(t, "CreateVehicle", 0)
 	})
 
 	t.Run("should not create vehicle when vehicle not found after created", func(t *testing.T) {
@@ -52,12 +55,50 @@ func TestCreate(t *testing.T) {
 		vehicleRepositoryMocked.On("Create", ctx, vehicle).
 			Return(nil, nil)
 
-		service := NewVehicleService(vehicleRepositoryMocked)
+		vehiclePlatformSalesAdapterMocked := mocks.NewVehiclePlatformSalesAdapter(t)
+
+		service := NewVehicleService(vehicleRepositoryMocked, vehiclePlatformSalesAdapterMocked)
 
 		actual, err := service.Create(ctx, vehicle)
 
 		assert.Nil(t, actual)
 		assert.Nil(t, err)
+		vehiclePlatformSalesAdapterMocked.AssertNumberOfCalls(t, "CreateVehicle", 0)
+	})
+
+	t.Run("should not create vehicle when failed to create vehicle at other service", func(t *testing.T) {
+		vehicle := entity.Vehicle{
+			Brand: "Chevrolet",
+			Model: "Tracker",
+			Year:  2023,
+			Color: "Black",
+			Price: 100000,
+		}
+
+		vehicleID := uuid.NewString()
+		now := time.Now()
+
+		created := vehicle
+		created.ID = vehicleID
+		created.CreatedAt = now
+		created.UpdatedAt = now
+
+		vehicleRepositoryMocked := mocks.NewVehicleRepository(t)
+
+		vehicleRepositoryMocked.On("Create", ctx, vehicle).
+			Return(&created, nil)
+
+		vehiclePlatformSalesAdapterMocked := mocks.NewVehiclePlatformSalesAdapter(t)
+
+		vehiclePlatformSalesAdapterMocked.On("CreateVehicle", ctx, vehicleID, vehicle.Brand, vehicle.Model, vehicle.Color, vehicle.Year, vehicle.Price).
+			Return(expectedError)
+
+		service := NewVehicleService(vehicleRepositoryMocked, vehiclePlatformSalesAdapterMocked)
+
+		actual, err := service.Create(ctx, vehicle)
+
+		assert.Nil(t, actual)
+		assert.Equal(t, expectedError, err)
 	})
 
 	t.Run("should create vehicle successfully", func(t *testing.T) {
@@ -82,7 +123,12 @@ func TestCreate(t *testing.T) {
 		vehicleRepositoryMocked.On("Create", ctx, vehicle).
 			Return(&created, nil)
 
-		service := NewVehicleService(vehicleRepositoryMocked)
+		vehiclePlatformSalesAdapterMocked := mocks.NewVehiclePlatformSalesAdapter(t)
+
+		vehiclePlatformSalesAdapterMocked.On("CreateVehicle", ctx, vehicleID, vehicle.Brand, vehicle.Model, vehicle.Color, vehicle.Year, vehicle.Price).
+			Return(nil)
+
+		service := NewVehicleService(vehicleRepositoryMocked, vehiclePlatformSalesAdapterMocked)
 
 		expected := created
 
@@ -113,7 +159,9 @@ func TestUpdate(t *testing.T) {
 		vehicleRepositoryMocked.On("Update", ctx, vehicleID, vehicle).
 			Return(nil, expectedError)
 
-		service := NewVehicleService(vehicleRepositoryMocked)
+		vehiclePlatformSalesAdapterMocked := mocks.NewVehiclePlatformSalesAdapter(t)
+
+		service := NewVehicleService(vehicleRepositoryMocked, vehiclePlatformSalesAdapterMocked)
 
 		actual, err := service.Update(ctx, vehicleID, vehicle)
 
@@ -137,7 +185,9 @@ func TestUpdate(t *testing.T) {
 		vehicleRepositoryMocked.On("Update", ctx, vehicleID, vehicle).
 			Return(nil, nil)
 
-		service := NewVehicleService(vehicleRepositoryMocked)
+		vehiclePlatformSalesAdapterMocked := mocks.NewVehiclePlatformSalesAdapter(t)
+
+		service := NewVehicleService(vehicleRepositoryMocked, vehiclePlatformSalesAdapterMocked)
 
 		actual, err := service.Update(ctx, vehicleID, vehicle)
 
@@ -168,7 +218,9 @@ func TestUpdate(t *testing.T) {
 		vehicleRepositoryMocked.On("Update", ctx, vehicleID, vehicle).
 			Return(&updated, nil)
 
-		service := NewVehicleService(vehicleRepositoryMocked)
+		vehiclePlatformSalesAdapterMocked := mocks.NewVehiclePlatformSalesAdapter(t)
+
+		service := NewVehicleService(vehicleRepositoryMocked, vehiclePlatformSalesAdapterMocked)
 
 		expected := updated
 
