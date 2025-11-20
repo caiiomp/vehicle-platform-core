@@ -20,3 +20,7 @@ func NewVehiclePlatformSalesAdapter(httpClient http.VehiclePlatformSalesHttpClie
 func (ref *vehiclePlatformSalesAdapter) CreateVehicle(ctx context.Context, vehicleID, brand, model, color string, year int, price float64) error {
 	return ref.httpClient.CreateVehicle(ctx, vehicleID, brand, model, color, year, price)
 }
+
+func (ref *vehiclePlatformSalesAdapter) UpdateVehicle(ctx context.Context, vehicleID string, brand string, model string, color string, year int, price float64) error {
+	return ref.httpClient.UpdateVehicle(ctx, vehicleID, brand, model, color, year, price)
+}
