@@ -31,6 +31,24 @@ func (_m *VehiclePlatformSalesHttpClient) CreateVehicle(ctx context.Context, veh
 	return r0
 }
 
+// UpdateVehicle provides a mock function with given fields: ctx, vehicleID, brand, model, color, year, price
+func (_m *VehiclePlatformSalesHttpClient) UpdateVehicle(ctx context.Context, vehicleID string, brand string, model string, color string, year int, price float64) error {
+	ret := _m.Called(ctx, vehicleID, brand, model, color, year, price)
+
+	if len(ret) == 0 {
+		panic("no return value specified for UpdateVehicle")
+	}
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(context.Context, string, string, string, string, int, float64) error); ok {
+		r0 = rf(ctx, vehicleID, brand, model, color, year, price)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
 // NewVehiclePlatformSalesHttpClient creates a new instance of VehiclePlatformSalesHttpClient. It also registers a testing interface on the mock and a cleanup function to assert the mocks expectations.
 // The first argument is typically a *testing.T value.
 func NewVehiclePlatformSalesHttpClient(t interface {
