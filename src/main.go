@@ -24,6 +24,8 @@ import (
 
 func main() {
 	var (
+		apiPort = os.Getenv("API_PORT")
+
 		host     = os.Getenv("DB_HOST")
 		port     = os.Getenv("DB_PORT")
 		user     = os.Getenv("DB_USER")
@@ -67,7 +69,11 @@ func main() {
 
 	vehicleApi.RegisterVehicleRoutes(app, vehicleService)
 
-	if err = app.Run(":4001"); err != nil {
+	if apiPort == "" {
+		apiPort = "8080"
+	}
+
+	if err = app.Run(":" + apiPort); err != nil {
 		log.Fatalf("coult not initialize http server: %v", err)
 	}
 }
