@@ -12,11 +12,30 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - vehicle_platform_core_network
+      - shared_network
+
+  vehicle-platform-core:
+    build: .
+    container_name: api-vehicle-platform-core
+    restart: always
+    depends_on:
+      - postgres
+    ports:
+      - "4001:4001"
+    environment:
+      API_PORT: "4001"
+      DB_HOST: "postgres"
+      DB_PORT: "5432"
+      DB_USER: "docker"
+      DB_PASSWORD: "docker"
+      DB_NAME: "vehicle-platform-core"
+      VEHICLE_PLATFORM_SALES_HOST: "http://vehicle-platform-sales:4002"
+    networks:
+      - shared_network
 
 volumes:
   postgres_data:
 
 networks:
-  vehicle_platform_core_network:
-    driver: bridge
+  shared_network:
+    external: true
