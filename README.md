@@ -1,2 +1,72 @@
 # vehicle-platform-core
-Serviço responsável por realizar cadastros e edições de veículos, receber notificações via webhook e atualizar o status de venda dos veículos.
+Este repositório contém a API para gestão de veículos, permitindo a criação e atualização dos mesmos.
+
+## Funcionalidades
+
+- **Cadastro de veículos:** Permite o cadastro de veículos à venda (marca, modelo, ano, cor e preço).
+- **Edição de veículos:** Permite a edição dos dados de veículos cadastrados.
+
+## Tecnologias Utilizadas
+
+- **Go (Golang):** Para o desenvolvimento da API de veículos.
+- **PostgreSQL:** Para o armazenamento dos dados de veículos.
+- **Gin:** Framework web para o desenvolvimento da API.
+- **Docker Compose:** Para o setup do serviço e suas dependências via Docker.
+
+## Como Rodar o Projeto Localmente
+
+### 1. Pré-requisitos
+
+Certifique-se de que você tem as seguintes dependências instaladas:
+
+- **Go (Golang)** versão 1.18 ou superior
+- **Git** para clonar o repositório
+- **Docker** e **Docker Compose**
+
+### 2. Configuração para rodar o serviço localmente com Docker Compose
+
+1. Clone o repositório:
+
+    ```bash
+    git clone git@github.com:caiiomp/vehicle-platform-core.git
+    ```
+
+2. Na raiz do projeto instale as dependências do Go:
+
+    ```bash
+    go mod tidy
+    ```
+
+3. Na raiz do projeto, inicie o serviço e suas dependências `docker`:
+
+    ```bash
+    docker compose up -d
+    ```
+
+    Isso irá iniciar o serviço e as suas dependências localmente via contêiner. O serviço estará disponível em `http://localhost:4001`.
+
+    ⚠️ Para que consigamos rodar todos os serviços integrados, devemos criar uma rede compartilhada no docker. Caso não tenha criada, podemos criar com o seguinte comando:
+
+    ```bash
+    docker network create shared_network
+    ```
+
+### 3. Testando o serviço
+
+Use **Postman**, **Insomnia**, **cURL** ou qualquer outro cliente **HTTP** para testar os endpoints:
+
+- `POST /vehicles` - Cadastrar um novo veículo
+- `PATCH /vehicles/:vehicle_id` - Editar um veículo existente
+
+Os testes unitários e os testes de integração podem ser executados da seguinte forma respectivamente:
+```bash
+    go test ./... -v
+    go test -tags=integration -v ./...
+```
+
+## Documentação (Swagger)
+
+Para acessar a documentação do serviço, acessar o seguinte endpoint: 
+```
+http://localhost:4001/swagger/index.html
+```
