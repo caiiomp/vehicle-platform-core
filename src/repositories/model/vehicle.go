@@ -3,8 +3,9 @@ package model
 import (
 	"time"
 
-	"github.com/caiiomp/vehicle-platform-core/src/core/domain/entity"
 	"github.com/google/uuid"
+
+	"github.com/caiiomp/vehicle-platform-core/src/core/domain/entity"
 )
 
 type Vehicle struct {

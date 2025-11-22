@@ -4,9 +4,10 @@ import (
 	"context"
 	"testing"
 
-	mocks "github.com/caiiomp/vehicle-platform-core/src/core/_mocks"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
+
+	mocks "github.com/caiiomp/vehicle-platform-core/src/core/_mocks"
 )
 
 func TestCreateVehicle(t *testing.T) {

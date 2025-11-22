@@ -4,9 +4,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/caiiomp/vehicle-platform-core/src/core/domain/entity"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/caiiomp/vehicle-platform-core/src/core/domain/entity"
 )
 
 func TestVehicleFromDomain(t *testing.T) {

@@ -23,11 +23,8 @@ services:
       - "4001:4001"
     environment:
       API_PORT: "4001"
-      DB_HOST: "postgres"
-      DB_PORT: "5432"
-      DB_USER: "docker"
-      DB_PASSWORD: "docker"
-      DB_NAME: "vehicle-platform-core"
+      MONGO_URI: "mongodb://docker:docker@mongo:27017"
+      MONGO_DATABASE: "vehicle-platform-core"
       VEHICLE_PLATFORM_SALES_HOST: "http://vehicle-platform-sales:4002"
     networks:
       - shared_network

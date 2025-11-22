@@ -6,10 +6,11 @@ import (
 	"testing"
 	"time"
 
-	mocks "github.com/caiiomp/vehicle-platform-core/src/core/_mocks"
-	"github.com/caiiomp/vehicle-platform-core/src/core/domain/entity"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
+
+	mocks "github.com/caiiomp/vehicle-platform-core/src/core/_mocks"
+	"github.com/caiiomp/vehicle-platform-core/src/core/domain/entity"
 )
 
 func TestCreate(t *testing.T) {
