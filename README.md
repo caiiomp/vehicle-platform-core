@@ -9,7 +9,7 @@ Este repositório contém a API para gestão de veículos, permitindo a criaçã
 ## Tecnologias Utilizadas
 
 - **Go (Golang):** Para o desenvolvimento da API de veículos.
-- **PostgreSQL:** Para o armazenamento dos dados de veículos.
+- **MongoDB:** Para o armazenamento dos dados de veículos.
 - **Gin:** Framework web para o desenvolvimento da API.
 - **Docker Compose:** Para o setup do serviço e suas dependências via Docker.
 

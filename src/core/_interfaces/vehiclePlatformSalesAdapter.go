@@ -5,6 +5,6 @@ import (
 )
 
 type VehiclePlatformSalesAdapter interface {
-	CreateVehicle(ctx context.Context, vehicleID, brand, model, color string, year int, price float64) error
-	UpdateVehicle(ctx context.Context, vehicleID, brand, model, color string, year int, price float64) error
+	CreateVehicle(ctx context.Context, entityID, brand, model, color string, year int, price float64) error
+	UpdateVehicle(ctx context.Context, entityID, brand, model, color string, year int, price float64) error
 }

@@ -8,6 +8,7 @@ import (
 
 type Vehicle struct {
 	ID        string    `json:"id"`
+	EntityID  string    `json:"entity_id"`
 	Brand     string    `json:"brand"`
 	Model     string    `json:"model"`
 	Year      int       `json:"year"`
@@ -20,6 +21,7 @@ type Vehicle struct {
 func VehicleFromDomain(vehicle entity.Vehicle) Vehicle {
 	return Vehicle{
 		ID:        vehicle.ID,
+		EntityID:  vehicle.EntityID.String(),
 		Brand:     vehicle.Brand,
 		Model:     vehicle.Model,
 		Year:      vehicle.Year,

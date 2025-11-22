@@ -4,17 +4,19 @@ import (
 	"time"
 
 	"github.com/caiiomp/vehicle-platform-core/src/core/domain/entity"
+	"github.com/google/uuid"
 )
 
 type Vehicle struct {
-	ID        string    `db:"id"`
-	Brand     string    `db:"brand"`
-	Model     string    `db:"model"`
-	Year      int       `db:"year"`
-	Color     string    `db:"color"`
-	Price     float64   `db:"price"`
-	CreatedAt time.Time `db:"created_at"`
-	UpdatedAt time.Time `db:"updated_at"`
+	ID        string    `bson:"_id,omitempty"`
+	EntityID  string    `bson:"entity_id,omitempty"`
+	Brand     string    `bson:"brand,omitempty"`
+	Model     string    `bson:"model,omitempty"`
+	Year      int       `bson:"year,omitempty"`
+	Color     string    `bson:"color,omitempty"`
+	Price     float64   `bson:"price,omitempty"`
+	CreatedAt time.Time `bson:"created_at,omitempty"`
+	UpdatedAt time.Time `bson:"updated_at,omitempty"`
 }
 
 func VehicleFromDomain(vehicle entity.Vehicle) Vehicle {
@@ -33,6 +35,7 @@ func VehicleFromDomain(vehicle entity.Vehicle) Vehicle {
 func (ref *Vehicle) ToDomain() *entity.Vehicle {
 	return &entity.Vehicle{
 		ID:        ref.ID,
+		EntityID:  uuid.MustParse(ref.EntityID),
 		Brand:     ref.Brand,
 		Model:     ref.Model,
 		Year:      ref.Year,

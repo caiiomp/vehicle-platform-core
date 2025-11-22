@@ -32,7 +32,7 @@ func (ref *vehicleService) Create(ctx context.Context, vehicle entity.Vehicle) (
 		return nil, nil
 	}
 
-	err = ref.vehiclePlatformSalesAdapter.CreateVehicle(ctx, created.ID, created.Brand, created.Model, created.Color, created.Year, created.Price)
+	err = ref.vehiclePlatformSalesAdapter.CreateVehicle(ctx, created.EntityID.String(), created.Brand, created.Model, created.Color, created.Year, created.Price)
 	if err != nil {
 		return nil, err
 	}
@@ -50,7 +50,7 @@ func (ref *vehicleService) Update(ctx context.Context, id string, vehicle entity
 		return nil, nil
 	}
 
-	err = ref.vehiclePlatformSalesAdapter.UpdateVehicle(ctx, id, updated.Brand, updated.Model, updated.Color, updated.Year, updated.Price)
+	err = ref.vehiclePlatformSalesAdapter.UpdateVehicle(ctx, updated.EntityID.String(), updated.Brand, updated.Model, updated.Color, updated.Year, updated.Price)
 	if err != nil {
 		return nil, err
 	}
