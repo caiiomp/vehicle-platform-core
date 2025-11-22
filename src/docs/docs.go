@@ -46,14 +46,14 @@ const docTemplate = `{
                             "$ref": "#/definitions/responses.Vehicle"
                         }
                     },
-                    "204": {
-                        "description": "No Content",
+                    "400": {
+                        "description": "Bad Request",
                         "schema": {
                             "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
-                    "400": {
-                        "description": "Bad Request",
+                    "404": {
+                        "description": "Not Found",
                         "schema": {
                             "$ref": "#/definitions/responses.ErrorResponse"
                         }
@@ -67,7 +67,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/vehicles/{vehicle_id}": {
+        "/vehicles/{entity_id}": {
             "patch": {
                 "description": "Update a vehicle",
                 "consumes": [
@@ -97,14 +97,14 @@ const docTemplate = `{
                             "$ref": "#/definitions/responses.Vehicle"
                         }
                     },
-                    "204": {
-                        "description": "No Content",
+                    "400": {
+                        "description": "Bad Request",
                         "schema": {
                             "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
-                    "400": {
-                        "description": "Bad Request",
+                    "404": {
+                        "description": "Not Found",
                         "schema": {
                             "$ref": "#/definitions/responses.ErrorResponse"
                         }
@@ -138,6 +138,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "created_at": {
+                    "type": "string"
+                },
+                "entity_id": {
                     "type": "string"
                 },
                 "id": {

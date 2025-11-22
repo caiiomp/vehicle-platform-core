@@ -10,12 +10,14 @@ import (
 )
 
 func TestVehicleFromDomain(t *testing.T) {
-	vehicleID := uuid.NewString()
+	id := uuid.NewString()
+	entityID := uuid.NewString()
 
 	now := time.Now()
 
 	vehicle := entity.Vehicle{
-		ID:        vehicleID,
+		ID:        id,
+		EntityID:  uuid.MustParse(entityID),
 		Brand:     "Some Brand",
 		Model:     "Some Model",
 		Year:      2025,
@@ -26,7 +28,8 @@ func TestVehicleFromDomain(t *testing.T) {
 	}
 
 	expected := Vehicle{
-		ID:        vehicleID,
+		ID:        id,
+		EntityID:  entityID,
 		Brand:     "Some Brand",
 		Model:     "Some Model",
 		Year:      2025,

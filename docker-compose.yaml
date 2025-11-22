@@ -1,16 +1,15 @@
 services:
-  postgres:
-    image: postgres:latest
-    container_name: postgres-vehicle-platform-core
+  mongo:
+    image: mongo:latest
+    container_name: mongo-vehicle-platform-core
     restart: always
     ports:
-      - "5432:5432"
+      - "27017:27017"
     environment:
-      POSTGRES_USER: docker
-      POSTGRES_PASSWORD: docker
-      POSTGRES_DB: vehicle-platform-core
+      MONGO_INITDB_ROOT_USERNAME: docker
+      MONGO_INITDB_ROOT_PASSWORD: docker
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - mongo_data:/data/db
     networks:
       - shared_network
 
@@ -19,7 +18,7 @@ services:
     container_name: api-vehicle-platform-core
     restart: always
     depends_on:
-      - postgres
+      - mongo
     ports:
       - "4001:4001"
     environment:
@@ -34,7 +33,7 @@ services:
       - shared_network
 
 volumes:
-  postgres_data:
+  mongo_data:
 
 networks:
   shared_network:

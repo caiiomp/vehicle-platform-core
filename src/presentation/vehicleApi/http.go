@@ -18,7 +18,7 @@ func RegisterVehicleRoutes(app *gin.Engine, vehicleService interfaces.VehicleSer
 	}
 
 	app.POST("/vehicles", service.create)
-	app.PATCH("/vehicles/:vehicle_id", service.update)
+	app.PATCH("/vehicles/:entity_id", service.update)
 }
 
 // Create godoc
@@ -29,8 +29,8 @@ func RegisterVehicleRoutes(app *gin.Engine, vehicleService interfaces.VehicleSer
 // @Produce json
 // @Param user body vehicleApi.createVehicleRequest true "Body"
 // @Success 201 {object} responses.Vehicle
-// @Failure 204 {object} responses.ErrorResponse
 // @Failure 400 {object} responses.ErrorResponse
+// @Failure 404 {object} responses.ErrorResponse
 // @Failure 500 {object} responses.ErrorResponse
 // @Router /vehicles [post]
 func (ref *vehicleApi) create(ctx *gin.Context) {
@@ -51,7 +51,9 @@ func (ref *vehicleApi) create(ctx *gin.Context) {
 	}
 
 	if vehicle == nil {
-		ctx.JSON(http.StatusNoContent, nil)
+		ctx.JSON(http.StatusNotFound, responses.ErrorResponse{
+			Error: "created vehicle not found",
+		})
 		return
 	}
 
@@ -67,12 +69,12 @@ func (ref *vehicleApi) create(ctx *gin.Context) {
 // @Produce json
 // @Param user body vehicleApi.updateVehicleRequest false "Body"
 // @Success 200 {object} responses.Vehicle
-// @Failure 204 {object} responses.ErrorResponse
 // @Failure 400 {object} responses.ErrorResponse
+// @Failure 404 {object} responses.ErrorResponse
 // @Failure 500 {object} responses.ErrorResponse
-// @Router /vehicles/{vehicle_id} [patch]
+// @Router /vehicles/{entity_id} [patch]
 func (ref *vehicleApi) update(ctx *gin.Context) {
-	var uri vehicleURI
+	var uri entityUri
 	if err := ctx.ShouldBindUri(&uri); err != nil {
 		ctx.JSON(http.StatusBadRequest, responses.ErrorResponse{
 			Error: err.Error(),
@@ -88,7 +90,7 @@ func (ref *vehicleApi) update(ctx *gin.Context) {
 		return
 	}
 
-	vehicle, err := ref.vehicleService.Update(ctx, uri.VehicleID, *request.ToDomain())
+	vehicle, err := ref.vehicleService.Update(ctx, uri.EntityID, *request.ToDomain())
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, responses.ErrorResponse{
 			Error: err.Error(),
@@ -97,7 +99,9 @@ func (ref *vehicleApi) update(ctx *gin.Context) {
 	}
 
 	if vehicle == nil {
-		ctx.JSON(http.StatusNoContent, nil)
+		ctx.JSON(http.StatusNotFound, responses.ErrorResponse{
+			Error: "vehicle does exist",
+		})
 		return
 	}
 

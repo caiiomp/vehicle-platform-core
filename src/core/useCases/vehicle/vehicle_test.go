@@ -75,11 +75,13 @@ func TestCreate(t *testing.T) {
 			Price: 100000,
 		}
 
-		vehicleID := uuid.NewString()
+		id := uuid.NewString()
+		entityID := uuid.NewString()
 		now := time.Now()
 
 		created := vehicle
-		created.ID = vehicleID
+		created.ID = id
+		created.EntityID = uuid.MustParse(entityID)
 		created.CreatedAt = now
 		created.UpdatedAt = now
 
@@ -90,7 +92,7 @@ func TestCreate(t *testing.T) {
 
 		vehiclePlatformSalesAdapterMocked := mocks.NewVehiclePlatformSalesAdapter(t)
 
-		vehiclePlatformSalesAdapterMocked.On("CreateVehicle", ctx, vehicleID, vehicle.Brand, vehicle.Model, vehicle.Color, vehicle.Year, vehicle.Price).
+		vehiclePlatformSalesAdapterMocked.On("CreateVehicle", ctx, entityID, vehicle.Brand, vehicle.Model, vehicle.Color, vehicle.Year, vehicle.Price).
 			Return(expectedError)
 
 		service := NewVehicleService(vehicleRepositoryMocked, vehiclePlatformSalesAdapterMocked)
@@ -110,11 +112,13 @@ func TestCreate(t *testing.T) {
 			Price: 100000,
 		}
 
-		vehicleID := uuid.NewString()
+		id := uuid.NewString()
+		entityID := uuid.NewString()
 		now := time.Now()
 
 		created := vehicle
-		created.ID = vehicleID
+		created.ID = id
+		created.EntityID = uuid.MustParse(entityID)
 		created.CreatedAt = now
 		created.UpdatedAt = now
 
@@ -125,7 +129,7 @@ func TestCreate(t *testing.T) {
 
 		vehiclePlatformSalesAdapterMocked := mocks.NewVehiclePlatformSalesAdapter(t)
 
-		vehiclePlatformSalesAdapterMocked.On("CreateVehicle", ctx, vehicleID, vehicle.Brand, vehicle.Model, vehicle.Color, vehicle.Year, vehicle.Price).
+		vehiclePlatformSalesAdapterMocked.On("CreateVehicle", ctx, entityID, vehicle.Brand, vehicle.Model, vehicle.Color, vehicle.Year, vehicle.Price).
 			Return(nil)
 
 		service := NewVehicleService(vehicleRepositoryMocked, vehiclePlatformSalesAdapterMocked)
@@ -196,7 +200,8 @@ func TestUpdate(t *testing.T) {
 	})
 
 	t.Run("should not update vehicle when failed to update vehicle at other service", func(t *testing.T) {
-		vehicleID := uuid.NewString()
+		id := uuid.NewString()
+		entityID := uuid.NewString()
 
 		vehicle := entity.Vehicle{
 			Brand: "Chevrolet",
@@ -209,30 +214,32 @@ func TestUpdate(t *testing.T) {
 		now := time.Now()
 
 		updated := vehicle
-		updated.ID = vehicleID
+		updated.ID = id
+		updated.EntityID = uuid.MustParse(entityID)
 		updated.CreatedAt = now
 		updated.UpdatedAt = now
 
 		vehicleRepositoryMocked := mocks.NewVehicleRepository(t)
 
-		vehicleRepositoryMocked.On("Update", ctx, vehicleID, vehicle).
+		vehicleRepositoryMocked.On("Update", ctx, id, vehicle).
 			Return(&updated, nil)
 
 		vehiclePlatformSalesAdapterMocked := mocks.NewVehiclePlatformSalesAdapter(t)
 
-		vehiclePlatformSalesAdapterMocked.On("UpdateVehicle", ctx, vehicleID, vehicle.Brand, vehicle.Model, vehicle.Color, vehicle.Year, vehicle.Price).
+		vehiclePlatformSalesAdapterMocked.On("UpdateVehicle", ctx, entityID, vehicle.Brand, vehicle.Model, vehicle.Color, vehicle.Year, vehicle.Price).
 			Return(expectedError)
 
 		service := NewVehicleService(vehicleRepositoryMocked, vehiclePlatformSalesAdapterMocked)
 
-		actual, err := service.Update(ctx, vehicleID, vehicle)
+		actual, err := service.Update(ctx, id, vehicle)
 
 		assert.Nil(t, actual)
 		assert.Equal(t, expectedError, err)
 	})
 
 	t.Run("should update vehicle successfully", func(t *testing.T) {
-		vehicleID := uuid.NewString()
+		id := uuid.NewString()
+		entityID := uuid.NewString()
 
 		vehicle := entity.Vehicle{
 			Brand: "Chevrolet",
@@ -245,25 +252,26 @@ func TestUpdate(t *testing.T) {
 		now := time.Now()
 
 		updated := vehicle
-		updated.ID = vehicleID
+		updated.ID = id
+		updated.EntityID = uuid.MustParse(entityID)
 		updated.CreatedAt = now
 		updated.UpdatedAt = now
 
 		vehicleRepositoryMocked := mocks.NewVehicleRepository(t)
 
-		vehicleRepositoryMocked.On("Update", ctx, vehicleID, vehicle).
+		vehicleRepositoryMocked.On("Update", ctx, id, vehicle).
 			Return(&updated, nil)
 
 		vehiclePlatformSalesAdapterMocked := mocks.NewVehiclePlatformSalesAdapter(t)
 
-		vehiclePlatformSalesAdapterMocked.On("UpdateVehicle", ctx, vehicleID, vehicle.Brand, vehicle.Model, vehicle.Color, vehicle.Year, vehicle.Price).
+		vehiclePlatformSalesAdapterMocked.On("UpdateVehicle", ctx, entityID, vehicle.Brand, vehicle.Model, vehicle.Color, vehicle.Year, vehicle.Price).
 			Return(nil)
 
 		service := NewVehicleService(vehicleRepositoryMocked, vehiclePlatformSalesAdapterMocked)
 
 		expected := updated
 
-		actual, err := service.Update(ctx, vehicleID, vehicle)
+		actual, err := service.Update(ctx, id, vehicle)
 
 		assert.Equal(t, &expected, actual)
 		assert.Nil(t, err)

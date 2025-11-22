@@ -22,8 +22,8 @@ func (ref createVehicleRequest) ToDomain() *entity.Vehicle {
 	}
 }
 
-type vehicleURI struct {
-	VehicleID string `uri:"vehicle_id"`
+type entityUri struct {
+	EntityID string `uri:"entity_id" binding:"required,uuid"`
 }
 
 type updateVehicleRequest struct {

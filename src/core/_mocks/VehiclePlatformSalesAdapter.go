@@ -13,9 +13,9 @@ type VehiclePlatformSalesAdapter struct {
 	mock.Mock
 }
 
-// CreateVehicle provides a mock function with given fields: ctx, vehicleID, brand, model, color, year, price
-func (_m *VehiclePlatformSalesAdapter) CreateVehicle(ctx context.Context, vehicleID string, brand string, model string, color string, year int, price float64) error {
-	ret := _m.Called(ctx, vehicleID, brand, model, color, year, price)
+// CreateVehicle provides a mock function with given fields: ctx, entityID, brand, model, color, year, price
+func (_m *VehiclePlatformSalesAdapter) CreateVehicle(ctx context.Context, entityID string, brand string, model string, color string, year int, price float64) error {
+	ret := _m.Called(ctx, entityID, brand, model, color, year, price)
 
 	if len(ret) == 0 {
 		panic("no return value specified for CreateVehicle")
@@ -23,7 +23,7 @@ func (_m *VehiclePlatformSalesAdapter) CreateVehicle(ctx context.Context, vehicl
 
 	var r0 error
 	if rf, ok := ret.Get(0).(func(context.Context, string, string, string, string, int, float64) error); ok {
-		r0 = rf(ctx, vehicleID, brand, model, color, year, price)
+		r0 = rf(ctx, entityID, brand, model, color, year, price)
 	} else {
 		r0 = ret.Error(0)
 	}
@@ -31,9 +31,9 @@ func (_m *VehiclePlatformSalesAdapter) CreateVehicle(ctx context.Context, vehicl
 	return r0
 }
 
-// UpdateVehicle provides a mock function with given fields: ctx, vehicleID, brand, model, color, year, price
-func (_m *VehiclePlatformSalesAdapter) UpdateVehicle(ctx context.Context, vehicleID string, brand string, model string, color string, year int, price float64) error {
-	ret := _m.Called(ctx, vehicleID, brand, model, color, year, price)
+// UpdateVehicle provides a mock function with given fields: ctx, entityID, brand, model, color, year, price
+func (_m *VehiclePlatformSalesAdapter) UpdateVehicle(ctx context.Context, entityID string, brand string, model string, color string, year int, price float64) error {
+	ret := _m.Called(ctx, entityID, brand, model, color, year, price)
 
 	if len(ret) == 0 {
 		panic("no return value specified for UpdateVehicle")
@@ -41,7 +41,7 @@ func (_m *VehiclePlatformSalesAdapter) UpdateVehicle(ctx context.Context, vehicl
 
 	var r0 error
 	if rf, ok := ret.Get(0).(func(context.Context, string, string, string, string, int, float64) error); ok {
-		r0 = rf(ctx, vehicleID, brand, model, color, year, price)
+		r0 = rf(ctx, entityID, brand, model, color, year, price)
 	} else {
 		r0 = ret.Error(0)
 	}
