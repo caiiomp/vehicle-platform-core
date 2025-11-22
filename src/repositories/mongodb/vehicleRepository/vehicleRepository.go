@@ -4,13 +4,14 @@ import (
 	"context"
 	"time"
 
-	interfaces "github.com/caiiomp/vehicle-platform-core/src/core/_interfaces"
-	"github.com/caiiomp/vehicle-platform-core/src/core/domain/entity"
-	"github.com/caiiomp/vehicle-platform-core/src/repositories/model"
 	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
+
+	interfaces "github.com/caiiomp/vehicle-platform-core/src/core/_interfaces"
+	"github.com/caiiomp/vehicle-platform-core/src/core/domain/entity"
+	"github.com/caiiomp/vehicle-platform-core/src/repositories/model"
 )
 
 type vehicleRepository struct {

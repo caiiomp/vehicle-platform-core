@@ -4,10 +4,11 @@ import (
 	"context"
 	"time"
 
+	"github.com/google/uuid"
+
 	interfaces "github.com/caiiomp/vehicle-platform-core/src/core/_interfaces"
 	"github.com/caiiomp/vehicle-platform-core/src/core/domain/entity"
 	"github.com/caiiomp/vehicle-platform-core/src/repositories/model"
-	"github.com/google/uuid"
 )
 
 type vehicleRepository struct {

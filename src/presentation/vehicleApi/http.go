@@ -3,9 +3,10 @@ package vehicleApi
 import (
 	"net/http"
 
+	"github.com/gin-gonic/gin"
+
 	interfaces "github.com/caiiomp/vehicle-platform-core/src/core/_interfaces"
 	"github.com/caiiomp/vehicle-platform-core/src/core/responses"
-	"github.com/gin-gonic/gin"
 )
 
 type vehicleApi struct {
