@@ -56,7 +56,6 @@ func main() {
 	httpClient := &http.Client{
 		Timeout: time.Second * 3,
 	}
-
 	vehiclePlatformSalesHttpClient := vehiclePlatformSalesHttp.NewVehiclePlatformSalesHttpClient(httpClient, vehiclePlatformSalesHost)
 
 	// Adapters
