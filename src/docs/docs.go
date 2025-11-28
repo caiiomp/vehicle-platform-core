@@ -82,6 +82,13 @@ const docTemplate = `{
                 "summary": "Update Vehicle",
                 "parameters": [
                     {
+                        "type": "string",
+                        "description": "Entity ID",
+                        "name": "entity_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
                         "description": "Body",
                         "name": "vehicle",
                         "in": "body",

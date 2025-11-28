@@ -69,6 +69,7 @@ func (ref *vehicleApi) create(ctx *gin.Context) {
 // @Tags Vehicle
 // @Accept json
 // @Produce json
+// @Param entity_id path string true "Entity ID"
 // @Param vehicle body vehicleApi.updateVehicleRequest false "Body"
 // @Success 200 {object} responses.Vehicle
 // @Failure 400 {object} responses.ErrorResponse
