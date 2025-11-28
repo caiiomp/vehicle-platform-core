@@ -7,6 +7,7 @@ import (
 
 	interfaces "github.com/caiiomp/vehicle-platform-core/src/core/_interfaces"
 	"github.com/caiiomp/vehicle-platform-core/src/core/responses"
+	"github.com/caiiomp/vehicle-platform-core/src/presentation/constants"
 )
 
 type vehicleApi struct {
@@ -24,11 +25,11 @@ func RegisterVehicleRoutes(app *gin.Engine, vehicleService interfaces.VehicleSer
 
 // Create godoc
 // @Summary Create Vehicle
-// @Description Create a vehicle
+// @Description Create vehicle
 // @Tags Vehicle
 // @Accept json
 // @Produce json
-// @Param user body vehicleApi.createVehicleRequest true "Body"
+// @Param vehicle body vehicleApi.createVehicleRequest true "Body"
 // @Success 201 {object} responses.Vehicle
 // @Failure 400 {object} responses.ErrorResponse
 // @Failure 404 {object} responses.ErrorResponse
@@ -53,7 +54,7 @@ func (ref *vehicleApi) create(ctx *gin.Context) {
 
 	if vehicle == nil {
 		ctx.JSON(http.StatusNotFound, responses.ErrorResponse{
-			Error: "created vehicle not found",
+			Error: constants.VehicleDoesNotExist,
 		})
 		return
 	}
@@ -64,11 +65,11 @@ func (ref *vehicleApi) create(ctx *gin.Context) {
 
 // Create godoc
 // @Summary Update Vehicle
-// @Description Update a vehicle
+// @Description Update vehicle
 // @Tags Vehicle
 // @Accept json
 // @Produce json
-// @Param user body vehicleApi.updateVehicleRequest false "Body"
+// @Param vehicle body vehicleApi.updateVehicleRequest false "Body"
 // @Success 200 {object} responses.Vehicle
 // @Failure 400 {object} responses.ErrorResponse
 // @Failure 404 {object} responses.ErrorResponse
@@ -101,7 +102,7 @@ func (ref *vehicleApi) update(ctx *gin.Context) {
 
 	if vehicle == nil {
 		ctx.JSON(http.StatusNotFound, responses.ErrorResponse{
-			Error: "vehicle does exist",
+			Error: constants.VehicleDoesNotExist,
 		})
 		return
 	}
