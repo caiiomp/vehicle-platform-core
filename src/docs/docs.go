@@ -17,7 +17,7 @@ const docTemplate = `{
     "paths": {
         "/vehicles": {
             "post": {
-                "description": "Create a vehicle",
+                "description": "Create vehicle",
                 "consumes": [
                     "application/json"
                 ],
@@ -31,7 +31,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "description": "Body",
-                        "name": "user",
+                        "name": "vehicle",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -69,7 +69,7 @@ const docTemplate = `{
         },
         "/vehicles/{entity_id}": {
             "patch": {
-                "description": "Update a vehicle",
+                "description": "Update vehicle",
                 "consumes": [
                     "application/json"
                 ],
@@ -83,7 +83,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "description": "Body",
-                        "name": "user",
+                        "name": "vehicle",
                         "in": "body",
                         "schema": {
                             "$ref": "#/definitions/vehicleApi.updateVehicleRequest"

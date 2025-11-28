@@ -64,11 +64,11 @@ paths:
     post:
       consumes:
       - application/json
-      description: Create a vehicle
+      description: Create vehicle
       parameters:
       - description: Body
         in: body
-        name: user
+        name: vehicle
         required: true
         schema:
           $ref: '#/definitions/vehicleApi.createVehicleRequest'
@@ -98,11 +98,11 @@ paths:
     patch:
       consumes:
       - application/json
-      description: Update a vehicle
+      description: Update vehicle
       parameters:
       - description: Body
         in: body
-        name: user
+        name: vehicle
         schema:
           $ref: '#/definitions/vehicleApi.updateVehicleRequest'
       produces:
